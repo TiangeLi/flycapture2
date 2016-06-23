@@ -24,7 +24,6 @@ import numpy as np
 cimport numpy as np
 
 from cpython cimport PyObject, Py_INCREF
-from libc.stdint cimport uintptr_t
 
 cdef extern from "numpy/arrayobject.h":
     object PyArray_NewFromDescr(object subtype, np.dtype descr,
@@ -390,7 +389,7 @@ def openAVI(fname, frate):
     tm.frameRate = frate
     r = fc2AVIOpen(p, fname, &tm)
     raise_error(r)
-    return <uintptr_t>p
+    return <int>p
 
 def appendAVI(p):
     cdef fc2AVIContext context = <fc2AVIContext>p
