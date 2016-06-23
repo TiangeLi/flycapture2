@@ -398,7 +398,7 @@ def appendAVI(context):
     cdef fc2Image img
     with nogil:
         fc2CreateImage(&img)
-    r = fc2AVIAppend(context, img)
+    r = fc2AVIAppend(context, &img)
     raise_error(r)
 
 def closeAVI(context):
