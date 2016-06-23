@@ -393,7 +393,7 @@ def openAVI(fname, frate):
     return <uintptr_t>p
 
 def appendAVI(p):
-    cdef fc2AVIContext context = p
+    cdef fc2AVIContext context = <fc2AVIContext>p
     cdef fc2Error r
     cdef fc2Image img
     with nogil:
@@ -402,7 +402,7 @@ def appendAVI(p):
     raise_error(r)
 
 def closeAVI(p):
-    cdef fc2AVIContext context = p
+    cdef fc2AVIContext context = <fc2AVIContext>p
     fc2AVIClose(context)
 
 
