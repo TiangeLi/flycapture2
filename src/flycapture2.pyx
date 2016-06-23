@@ -389,8 +389,21 @@ def openAVI(fname, frate):
     tm.frameRate = frate
     r = fc2AVIOpen(p, fname, &tm)
     raise_error(r)
+    return p
 
+def appendAVI(context):
+    cdef fc2Error r
+    cdef fc2Image img
+    with nogil:
+        fc2CreateImage(&img)
+        r = fc2AVIAppend(context, img)
+    raise_error(r)
 
+def closeAVI(context):
+    cdef fc2Error r
+    with nogil:
+        r =fc2AVIClose(context)
+    raise_error(r)
 
 
 
