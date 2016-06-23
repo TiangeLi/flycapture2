@@ -350,7 +350,7 @@ cdef class Image:
 
     def __array__(self):
         cdef np.ndarray r
-        cdef np.npy_intp shape[2]
+        cdef np.npy_intp shape[3]
         cdef np.npy_intp stride[2]
         cdef np.dtype dtype
         if self.img.format == PIXEL_FORMAT_MONO8:
@@ -365,6 +365,7 @@ cdef class Image:
         Py_INCREF(dtype)
         shape[0] = self.img.rows
         shape[1] = self.img.cols
+        shape[2] = 3
         stride[0] = self.img.stride
         #assert stride[0] == stride[1]*shape[1]
         #assert shape[0]*shape[1]*stride[1] == self.img.dataSize
@@ -373,7 +374,7 @@ cdef class Image:
                 self.img.pData, np.NPY_DEFAULT, None)
         r.base = <PyObject *>self
         Py_INCREF(self)
-        return r, self.img
+        return r
 
     def get_format(self):
         return self.img.format
