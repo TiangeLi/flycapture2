@@ -62,7 +62,7 @@ http://www.ptgrey.com/support/downloads/documents/flycapture/Doxygen/html/index.
     #packages=["flycapture2"],
     cmdclass = {'build_ext': build_ext},
     #"test_flycapture2.py", "convert.py"
-    ext_modules = [Extension("flycapture2",
+    ext_modules = [Extension("flycapture2a",
         sources = ["src/flycapture2a.pyx", "src/flycapture2_enums.pxi",
             "src/_FlyCapture2Defs_C.pxd", "src/_FlyCapture2_C.pxd",],
         libraries = [libname],
