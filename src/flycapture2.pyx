@@ -384,12 +384,14 @@ cdef class Image:
 
 cdef class AVIContext:
     cdef fc2AVIContext p
+    cdef fc2Image img
 
     def __cinit__(self):
         cdef fc2Error r
         with nogil:
             r = fc2CreateAVI(&self.p)
         raise_error(r)
+        fc2CreateImage(&self.img)
 
     def __dealloc__(self):
         cdef fc2Error r
@@ -406,8 +408,7 @@ cdef class AVIContext:
 
     def appendAVI(self):
         cdef fc2Error r
-        cdef fc2Image img
-        fc2CreateImage(&img)
+        fc2RetrieveBuffer(self.p, &self.img)
         r = fc2AVIAppend(self.p, &img)
         raise_error(r)
 
