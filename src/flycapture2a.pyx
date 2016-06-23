@@ -334,19 +334,25 @@ cdef class Context:
 
     def openAVI(self, fname, frate):
         cdef fc2AVIOption tm
-        cdef fc2Error r
         with nogil:
             r = fc2CreateAVI(&self.avictx)
         raise_error(r)
 
+        tm.frameRate = frate
+        r = fc2AVIOpen(self.avictx, fname, &tm)
+        raise_error(r)
+
     def appendAVI(self):
         cdef fc2Error r
+
         img = Image()
         with nogil:
             r = fc2RetrieveBuffer(self.ctx, &img.img)
         raise_error(r)
-        r = fc2AVIAppend(self.avictx, &img.img)
+
+        r=fc2AVIAppend(self.avictx, &img.img)
         raise_error(r)
+        
 
     def closeAVI(self):
         fc2AVIClose(self.avictx)
@@ -354,9 +360,8 @@ cdef class Context:
         with nogil:
             r = fc2DestroyAVI(self.avictx)
         raise_error(r)
-        print "dsajfkl;dajskfldasdhjksfahfdkljashkfldjhsakljfdhsjaklhfjdklsa"
-                
-                
+
+          
 cdef class Image:
     cdef fc2Image img
 
@@ -404,6 +409,10 @@ cdef class Image:
 
     def get_format(self):
         return self.img.format
+
+
+
+
 
 
 
