@@ -51,6 +51,7 @@ def get_library_version():
 
 cdef class Context:
     cdef fc2Context ctx
+    cdef fc2AVIContext avictx
 
     def __cinit__(self):
         cdef fc2Error r
@@ -330,7 +331,29 @@ cdef class Context:
         with nogil:
             r = fc2SetFormat7Configuration(self.ctx, &s, f)
         raise_error(r)
-    
+
+    def openAVI(self, fname, frate):
+        cdef fc2AVIOption tm
+        cdef fc2Error r
+        with nogil:
+            r = fc2CreateAVI(&self.avictx)
+        raise_error(r)
+
+    def appendAVI(self):
+        cdef fc2Error r
+        img = Image()
+        with nogil:
+            r = fc2RetrieveBuffer(self.ctx, &img.img)
+        raise_error(r)
+        r = fc2AVIAppend(self.avictx, &img.img)
+        raise_error(r)
+
+    def closeAVI(self):
+        fc2AVIClose(self.avictx)
+        cdef fc2Error r
+        with nogil:
+            r = fc2DestroyAVI(self.avictx)
+        raise_error(r)
                 
                 
 cdef class Image:
@@ -380,42 +403,6 @@ cdef class Image:
 
     def get_format(self):
         return self.img.format
-
-
-cdef class AVIContext:
-    cdef fc2AVIContext p
-    cdef fc2Image img
-
-    def __cinit__(self):
-        cdef fc2Error r
-        with nogil:
-            r = fc2CreateAVI(&self.p)
-        raise_error(r)
-        fc2CreateImage(&self.img)
-
-    def __dealloc__(self):
-        cdef fc2Error r
-        with nogil:
-            r = fc2DestroyAVI(self.p)
-        raise_error(r)
-
-    def openAVI(self, fname, frate):
-        cdef fc2Error r
-        cdef fc2AVIOption tm
-        tm.frameRate = frate
-        r = fc2AVIOpen(self.p, fname, &tm)
-        raise_error(r)
-
-    def appendAVI(self):
-        cdef fc2Error r
-        r= fc2RetrieveBuffer(self.p, &self.img)
-        raise_error(r)
-        fc2AVIAppend(self.p, &self.img)
-        
-
-    def closeAVI(self):
-        fc2AVIClose(self.p)
-
 
 
 
