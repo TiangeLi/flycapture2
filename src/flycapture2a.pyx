@@ -126,7 +126,6 @@ cdef class Context:
         with nogil:
             r = fc2Disconnect(self.ctx)
         raise_error(r)
-        print "########################sadsa#####"
 
     def get_video_mode_and_frame_rate_info(self, 
             fc2VideoMode mode, fc2FrameRate framerate):
@@ -337,23 +336,19 @@ cdef class Context:
         with nogil:
             r = fc2CreateAVI(&self.avictx)
         raise_error(r)
-
         tm.frameRate = frate
         r = fc2AVIOpen(self.avictx, fname, &tm)
         raise_error(r)
 
     def appendAVI(self):
         cdef fc2Error r
-
         img = Image()
         with nogil:
             r = fc2RetrieveBuffer(self.ctx, &img.img)
         raise_error(r)
-
         r=fc2AVIAppend(self.avictx, &img.img)
         raise_error(r)
         
-
     def closeAVI(self):
         fc2AVIClose(self.avictx)
         cdef fc2Error r
