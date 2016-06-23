@@ -392,5 +392,5 @@ def openAVI(aviContext, fname, frate):
     cdef fc2AVIOption tm
     tm.frameRate = frate
     with nogil:
-        r = fc2CreateAVI(aviContext, fname, &tm)
+        r = fc2AVIOpen(aviContext, fname, &tm)
     raise_error(r)
