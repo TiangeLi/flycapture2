@@ -125,10 +125,6 @@ cdef class Context:
             r = fc2Disconnect(self.ctx)
         raise_error(r)
         print "#############################"
-        print "#############################"
-        print "#############################"
-        print "#############################"
-        print "#############################"
 
     def get_video_mode_and_frame_rate_info(self, 
             fc2VideoMode mode, fc2FrameRate framerate):
@@ -263,6 +259,18 @@ cdef class Context:
         tm.parameter = parameter
         with nogil:
             r = fc2SetTriggerMode(self.ctx, &tm)
+        raise_error(r)
+
+    def set_strobe_mode(self, source, onOff, polarity, delay, duration):
+        cdef fcError r
+        cdef fc2StrobeControl tm
+        tm.source = source
+        tm.onOff = onOff
+        tm.polarity = polarity
+        tm.delay = delay
+        tm.duration = duration
+        with nogil:
+            r = fc2SetStrobe(self.ctx, &tm)
         raise_error(r)
     
     def get_format7_info(self, mode):
