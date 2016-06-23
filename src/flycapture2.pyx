@@ -354,6 +354,7 @@ cdef class Context:
         with nogil:
             r = fc2DestroyAVI(self.avictx)
         raise_error(r)
+        print "dsajfkl;dajskfldasdhjksfahfdkljashkfldjhsakljfdhsjaklhfjdklsa"
                 
                 
 cdef class Image:
