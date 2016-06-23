@@ -126,7 +126,7 @@ cdef class Context:
         with nogil:
             r = fc2Disconnect(self.ctx)
         raise_error(r)
-        print "#############################"
+        print "########################sadsa#####"
 
     def get_video_mode_and_frame_rate_info(self, 
             fc2VideoMode mode, fc2FrameRate framerate):
