@@ -372,7 +372,7 @@ cdef class Image:
                 self.img.pData, np.NPY_DEFAULT, None)
         r.base = <PyObject *>self
         Py_INCREF(self)
-        return r
+        return r, self.img
 
     def get_format(self):
         return self.img.format
