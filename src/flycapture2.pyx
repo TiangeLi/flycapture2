@@ -262,7 +262,7 @@ cdef class Context:
         raise_error(r)
 
     def set_strobe_mode(self, source, onOff, polarity, delay, duration):
-        cdef fcError r
+        cdef fc2Error r
         cdef fc2StrobeControl tm
         tm.source = source
         tm.onOff = onOff
