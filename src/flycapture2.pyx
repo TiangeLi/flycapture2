@@ -408,9 +408,10 @@ cdef class AVIContext:
 
     def appendAVI(self):
         cdef fc2Error r
-        fc2RetrieveBuffer(self.p, &self.img)
-        r = fc2AVIAppend(self.p, &self.img)
+        r= fc2RetrieveBuffer(self.p, &self.img)
         raise_error(r)
+        fc2AVIAppend(self.p, &self.img)
+        
 
     def closeAVI(self):
         fc2AVIClose(self.p)
