@@ -381,15 +381,26 @@ cdef class Image:
     def get_format(self):
         return self.img.format
 
-def createAVI(aviContext):
-    cdef fc2Error r
-    with nogil:
-        r = fc2CreateAVI(&aviContext)
-    raise_error(r)
-
-def openAVI(aviContext, fname, frate):
+def openAVI(fname, frate):
+    cdef fc2AVIContext p
+    fc2CreateAVI(&p)
     cdef fc2Error r
     cdef fc2AVIOption tm
     tm.frameRate = frate
-    r = fc2AVIOpen(aviContext, fname, &tm)
+    r = fc2AVIOpen(p, fname, &tm)
     raise_error(r)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
