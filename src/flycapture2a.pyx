@@ -331,7 +331,7 @@ cdef class Context:
             r = fc2SetFormat7Configuration(self.ctx, &s, f)
         raise_error(r)
 
-    def openAVI(self, fname, frate):
+    def openAVI(self, fname, frate, bitrate):
         cdef fc2H264Option tm
         cdef fc2Error r
         with nogil:
@@ -340,7 +340,7 @@ cdef class Context:
         tm.frameRate = frate
         tm.width = 640
         tm.height = 480
-        tm.bitrate = 1000000
+        tm.bitrate = bitrate
         r = fc2H264Open(self.avictx, fname, &tm)
         raise_error(r)
 
