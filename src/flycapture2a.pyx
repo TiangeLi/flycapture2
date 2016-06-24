@@ -332,12 +332,15 @@ cdef class Context:
         raise_error(r)
 
     def openAVI(self, fname, frate):
-        cdef fc2AVIOption tm
+        cdef fc2H264Option tm
         with nogil:
             r = fc2CreateAVI(&self.avictx)
         raise_error(r)
         tm.frameRate = frate
-        r = fc2AVIOpen(self.avictx, fname, &tm)
+        tm.width = 640
+        tm.height = 480
+        tm.bitrate = 1000000
+        r = fc2H264Open(self.avictx, fname, &tm)
         raise_error(r)
 
     def appendAVI(self):
