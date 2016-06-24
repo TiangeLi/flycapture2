@@ -333,8 +333,7 @@ cdef class Context:
 
     def openAVI(self, fname, frate):
         cdef fc2H264Option tm
-        with nogil:
-            r = fc2CreateAVI(&self.avictx)
+        fc2CreateAVI(&self.avictx)
         raise_error(r)
         tm.frameRate = frate
         tm.width = 640
