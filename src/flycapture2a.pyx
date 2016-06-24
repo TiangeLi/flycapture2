@@ -338,7 +338,7 @@ cdef class Context:
         tm.width = 640
         tm.height = 480
         tm.bitrate = 1000000
-        r = fc2H264Option(self.avictx, fname, tm)
+        r = fc2H264Option(&self.avictx, fname, tm)
         raise_error(r)
 
     def appendAVI(self):
