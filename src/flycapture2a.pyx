@@ -344,12 +344,13 @@ cdef class Context:
         r = fc2H264Open(self.avictx, fname, &tm)
         raise_error(r)
 
-    def appendAVI(self):
+    def appendAVI(self, fname):
         cdef fc2Error r
         img = Image()
         with nogil:
             r = fc2RetrieveBuffer(self.ctx, &img.img)
         raise_error(r)
+        fc2SaveImage(&img.img, fname, FC2_BMP)
         r=fc2AVIAppend(self.avictx, &img.img)
         raise_error(r)
         
