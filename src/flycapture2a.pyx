@@ -350,7 +350,7 @@ cdef class Context:
         with nogil:
             r = fc2RetrieveBuffer(self.ctx, &img.img)
         raise_error(r)
-        r = fc2SetImageDimensions(&img.img, 216, 288, 288, FC2_PIXEL_FORMAT_MONO8, FC2_BT_NONE)
+        r = fc2SetImageDimensions(&img.img, 216, 288, 291, FC2_PIXEL_FORMAT_MONO8, FC2_BT_NONE)
         raise_error(r)
         r = fc2SaveImage(&img.img, fname, FC2_BMP)
         raise_error(r)
