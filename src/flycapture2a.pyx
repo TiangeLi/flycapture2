@@ -364,7 +364,6 @@ cdef class Context:
         raise_error(r)
         r = fc2SaveImage(&img.img, fname, FC2_BMP)
         raise_error(r)
-        return img.r
 
     def appendAVINoFrame(self):
         cdef fc2Error r
@@ -374,7 +373,6 @@ cdef class Context:
         raise_error(r)
         r=fc2AVIAppend(self.avictx, &img.img)
         raise_error(r)
-        return img.r
         
     def closeAVI(self):
         fc2AVIClose(self.avictx)
@@ -427,8 +425,7 @@ cdef class Image:
         Py_INCREF(self)
         print self.img.format
         print self.img.bayerFormat
-        self.r = r
-        return self.r
+        return r
 
     def get_format(self):
         return self.img.format
