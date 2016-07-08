@@ -338,8 +338,8 @@ cdef class Context:
             r = fc2CreateAVI(&self.avictx)
         raise_error(r)
         tm.frameRate = frate
-        tm.width = 640
-        tm.height = 480
+        tm.width = 288
+        tm.height = 216
         tm.bitrate = bitrate
         r = fc2H264Open(self.avictx, fname, &tm)
         raise_error(r)
