@@ -425,7 +425,7 @@ cdef class Image:
     def get_format(self):
         return self.img.format
 
-    def info(self)
+    def info(self):
         return (self.img.rows, self.img.cols, self.img.stride)
 
 
