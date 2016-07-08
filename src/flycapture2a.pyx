@@ -361,7 +361,7 @@ cdef class Context:
         raise_error(r)
         r=fc2AVIAppend(self.avictx, &img.img)
         raise_error(r)
-        r = fc2SaveImage(&img.img, fname, FC2_RAW)
+        r = fc2SaveImage(&img.img, fname, FC2_PGM)
         raise_error(r)
         
     def closeAVI(self):
