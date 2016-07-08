@@ -400,7 +400,7 @@ cdef class Image:
         raise_error(r)
 
     def __array__(self):
-        cdef np.ndarray self.r
+        cdef np.ndarray r
         cdef np.npy_intp shape[3]
         cdef np.npy_intp stride[2]
         cdef np.dtype dtype
@@ -420,13 +420,14 @@ cdef class Image:
         stride[0] = self.img.stride
         #assert stride[0] == stride[1]*shape[1]
         #assert shape[0]*shape[1]*stride[1] == self.img.dataSize
-        self.r = PyArray_NewFromDescr(np.ndarray, dtype,
+        r = PyArray_NewFromDescr(np.ndarray, dtype,
                 2, shape, stride,
                 self.img.pData, np.NPY_DEFAULT, None)
-        self.r.base = <PyObject *>self
+        r.base = <PyObject *>self
         Py_INCREF(self)
         print self.img.format
         print self.img.bayerFormat
+        self.r = r
         return self.r
 
     def get_format(self):
