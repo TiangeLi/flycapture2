@@ -351,7 +351,7 @@ cdef class Context:
             r = fc2RetrieveBuffer(self.ctx, &img.img)
         print img.info()
         raise_error(r)
-        r = fc2SetImageDimensions(&img.img, 480, 640, 640, FC2_PIXEL_FORMAT_MONO8, FC2_BT_NONE)
+        r = fc2SetImageDimensions(&img.img, 240, 320, 320, FC2_PIXEL_FORMAT_MONO8, FC2_BT_NONE)
         raise_error(r)
         r = fc2SaveImage(&img.img, fname, FC2_BMP)
         raise_error(r)
