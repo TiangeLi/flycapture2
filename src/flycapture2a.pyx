@@ -349,11 +349,8 @@ cdef class Context:
         img = Image()
         with nogil:
             r = fc2RetrieveBuffer(self.ctx, &img.img)
-        print img.info()
         raise_error(r)
-        r = fc2SetImageDimensions(&img.img, 240, 320, 320, FC2_PIXEL_FORMAT_MONO8, FC2_BT_NONE)
-        raise_error(r)
-        r = fc2SaveImage(&img.img, fname, FC2_BMP)
+        r = fc2SaveImage(&img.img, fname, FC2_PNG)
         raise_error(r)
 
     def appendAVI(self, fname):
@@ -363,8 +360,6 @@ cdef class Context:
             r = fc2RetrieveBuffer(self.ctx, &img.img)
         raise_error(r)
         r=fc2AVIAppend(self.avictx, &img.img)
-        raise_error(r)
-        r = fc2SetImageDimensions(&img.img, 216, 288, 288, FC2_PIXEL_FORMAT_RGB8, FC2_BT_NONE)
         raise_error(r)
         r = fc2SaveImage(&img.img, fname, FC2_BMP)
         raise_error(r)
