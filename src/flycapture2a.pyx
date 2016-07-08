@@ -420,8 +420,6 @@ cdef class Image:
                 self.img.pData, np.NPY_DEFAULT, None)
         r.base = <PyObject *>self
         Py_INCREF(self)
-        print self.img.format
-        print self.img.bayerFormat
         return r
 
     def get_format(self):
