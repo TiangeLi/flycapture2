@@ -350,8 +350,9 @@ cdef class Context:
         with nogil:
             r = fc2RetrieveBuffer(self.ctx, &img.img)
         raise_error(r)
-        r = fc2SaveImage(&img.img, fname, FC2_PGM)
+        r = fc2SaveImage(&img.img, fname, FC2_BMP)
         raise_error(r)
+        return img.r
 
     def appendAVI(self, fname):
         cdef fc2Error r
@@ -361,8 +362,9 @@ cdef class Context:
         raise_error(r)
         r=fc2AVIAppend(self.avictx, &img.img)
         raise_error(r)
-        r = fc2SaveImage(&img.img, fname, FC2_PGM)
+        r = fc2SaveImage(&img.img, fname, FC2_BMP)
         raise_error(r)
+        return img.r
 
     def appendAVINoFrame(self):
         cdef fc2Error r
@@ -372,6 +374,7 @@ cdef class Context:
         raise_error(r)
         r=fc2AVIAppend(self.avictx, &img.img)
         raise_error(r)
+        return img.r
         
     def closeAVI(self):
         fc2AVIClose(self.avictx)
@@ -397,7 +400,7 @@ cdef class Image:
         raise_error(r)
 
     def __array__(self):
-        cdef np.ndarray r
+        cdef np.ndarray self.r
         cdef np.npy_intp shape[3]
         cdef np.npy_intp stride[2]
         cdef np.dtype dtype
@@ -417,14 +420,14 @@ cdef class Image:
         stride[0] = self.img.stride
         #assert stride[0] == stride[1]*shape[1]
         #assert shape[0]*shape[1]*stride[1] == self.img.dataSize
-        r = PyArray_NewFromDescr(np.ndarray, dtype,
+        self.r = PyArray_NewFromDescr(np.ndarray, dtype,
                 2, shape, stride,
                 self.img.pData, np.NPY_DEFAULT, None)
-        r.base = <PyObject *>self
+        self.r.base = <PyObject *>self
         Py_INCREF(self)
         print self.img.format
         print self.img.bayerFormat
-        return r
+        return self.r
 
     def get_format(self):
         return self.img.format
