@@ -352,7 +352,7 @@ cdef class Context:
         raise_error(r)
         r = fc2SaveImage(&img.img, fname, FC2_BMP)
         raise_error(r)
-        return img.r
+        return np.array(img)
 
     def appendAVI(self, fname):
         cdef fc2Error r
